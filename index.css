@@ -81,7 +81,22 @@ body{
 
 .nav-item i{ font-size:20px; color:#6f7894; flex-shrink: 0; }
 .nav-item:hover{ background:#f0f2f7; border-color:#e6e9f2; }
-.nav-item.active{ background:#efeaff; border-color:#e2dbff; color:var(--accent); }
+
+/* Estado activo: por defecto (colapsado) */
+.nav-item.active {
+  background: #efeaff;
+  border-color: #e2dbff;
+  color: var(--accent);
+  justify-content: center; /* Centra el ícono */
+  padding: 10px; /* Padding simétrico */
+}
+
+/* Estado activo: al expandir la barra */
+.sidebar:hover .nav-item.active {
+  justify-content: flex-start; /* Alinea a la izquierda */
+  padding: 10px 12px; /* Restaura el padding original */
+}
+
 .nav-item.active i{ color:var(--accent); }
 
 .sidebar-footer{
