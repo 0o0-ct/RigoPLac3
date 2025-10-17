@@ -6,8 +6,8 @@
   --accent:#2b47a1bf; --accent-600:#6b99dffb; --shadow:0 10px 24px rgba(31,35,40,.08);
   --rad:12px; --rad-lg:16px;
 
-  /* tamaño del logo */
-  --brand-size:52px;
+  /* tamaño del logo MÁS PEQUEÑO y optimizado */
+  --brand-size: 42px;
 }
 html, body { height:100%; }
 body{
@@ -27,24 +27,47 @@ body{
   width: 260px;
 }
 
-/* Brand (solo imagen) */
+/* Brand (logo) - MEJORADO para mejor centrado y legibilidad */
 .brand {
   display: grid;
   place-items: center;
-  padding: 5px 0;
+  padding: 8px 0 12px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .brand-img {
-  max-width: 50px;
-  height: auto;
-  transition: max-width .3s ease;
+  width: var(--brand-size);
+  height: var(--brand-size);
+  object-fit: contain;
+  transition: all .3s ease;
+  border-radius: 8px;
+  /* Mejorar la calidad de la imagen */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .sidebar:hover .brand-img {
-  max-width: 115px;
+  width: 90px;
+  height: 90px;
 }
 
-/* Nav */
+/* Si el logo tiene texto, asegurar que sea legible */
+.brand-text {
+  display: none;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text);
+  margin-top: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.sidebar:hover .brand-text {
+  display: block;
+}
+
+/* Resto del CSS se mantiene igual... */
 .nav{ display:flex; flex-direction:column; gap:6px; }
 
 .nav-section {
@@ -80,7 +103,6 @@ body{
   visibility: visible;
 }
 
-
 .nav-item i{ font-size:20px; color:#6f7894; flex-shrink: 0; }
 .nav-item:hover{ background:#f0f2f7; border-color:#e6e9f2; }
 .nav-item.active{
@@ -112,13 +134,21 @@ body{
   border-radius:999px;
 }
 
-
-/* Topbar */
+/* Topbar - AÑADIR LOGO PEQUEÑO EN TOPBAR PARA MÓVIL */
 .topbar{
   position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between;
   padding:12px 18px; background:#728ab4be; border-bottom:1px solid var(--line); box-shadow:var(--shadow);
 }
 .topbar .left, .topbar .right{ display:flex; align-items:center; gap:10px; }
+
+/* Logo pequeño en topbar para móviles */
+.topbar-logo {
+  display: none;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+}
 
 .search{
   display:flex; align-items:center; gap:8px; border:1px solid var(--line); background:#fff; border-radius:999px;
@@ -206,7 +236,6 @@ body{
 .wa-btn:hover{ background:#def1e6; }
 .wa-btn i{ font-size:20px; }
 
-
 /* ===== Botón WhatsApp oculto hasta hover ===== */
 .card {
   position: relative;
@@ -252,7 +281,6 @@ body{
   transform: translateX(-50%) translateY(-2px) scale(1.05);
   box-shadow: 0 6px 14px rgba(37, 211, 102, 0.5);
 }
-
 
 /* ==== MODAL DE PRODUCTO / PRODUCT MODAL ==== */
 .modal-product {
@@ -567,6 +595,11 @@ body{
     opacity: 1;
     transform: scale(1);
   }
+  
+  /* Mostrar logo pequeño en topbar en móviles */
+  .topbar-logo {
+    display: block;
+  }
 }
 
 /* Móviles */
@@ -609,6 +642,15 @@ body{
   .product-modal-image img {
     min-height: 250px;
   }
+  
+  /* Ajustar tamaño del logo en sidebar para móviles */
+  :root {
+    --brand-size: 36px;
+  }
+  
+  .brand {
+    padding: 6px 0 10px 0;
+  }
 }
 
 /* Pantallas muy pequeñas */
@@ -621,5 +663,10 @@ body{
   .fav-btn {
     align-self: flex-end;
     margin-top: -8px;
+  }
+  
+  /* Logo aún más pequeño en móviles muy pequeños */
+  :root {
+    --brand-size: 32px;
   }
 }
