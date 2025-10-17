@@ -136,7 +136,7 @@ body{
 
 /* Topbar - AÑADIR LOGO PEQUEÑO EN TOPBAR PARA MÓVIL */
 .topbar{
-  position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:center;
   padding:12px 18px; background:#728ab4be; border-bottom:1px solid var(--line); box-shadow:var(--shadow);
 }
 .topbar .left, .topbar .right{ display:flex; align-items:center; gap:10px; }
