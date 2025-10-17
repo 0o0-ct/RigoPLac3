@@ -62,70 +62,11 @@ function updateFavoriteButtons(productId) {
 // ========================================
 // DATOS DE PRODUCTOS / PRODUCT DATA
 // ========================================
-// EDITAR AQUÍ: Debe coincidir con los datos de app.js
-// En una aplicación real, estos datos vendrían de una API o base de datos
-
-const mine = [
-  { 
-    id: '1', 
-    title: "Bicicleta urbana", 
-    price: 650, 
-    city: "Guatemala", 
-    category: "Ropa", 
-    image: "", 
-    description: "Bicicleta de montaña en excelente estado, perfecta para la ciudad. Incluye casco y candado.", 
-    condition: "Usado - Como nuevo" 
-  },
-  { 
-    id: '2', 
-    title: "Silla gamer", 
-    price: 950, 
-    city: "Mixco", 
-    category: "Hogar", 
-    image: "", 
-    description: "Silla gamer reclinable con soporte lumbar. Muy cómoda para largas sesiones de trabajo o juego.", 
-    condition: "Usado - Buen estado" 
-  }
-];
-
-const feed = [
-  { 
-    id: '3', 
-    title: "Brownie casero", 
-    price: 15, 
-    city: "Guatemala", 
-    category: "Comida", 
-    image: "", 
-    description: "Brownies artesanales hechos con chocolate belga. Receta familiar transmitida por generaciones.", 
-    condition: "Nuevo" 
-  },
-  { 
-    id: '4', 
-    title: "Arduino UNO", 
-    price: 180, 
-    city: "Mixco", 
-    category: "Tecnología", 
-    image: "", 
-    description: "Arduino UNO R3 original. Perfecto para proyectos de electrónica y robótica. Incluye cable USB.", 
-    condition: "Nuevo" 
-  },
-  { 
-    id: '5', 
-    title: "Cojín artesanal", 
-    price: 90, 
-    city: "Guatemala", 
-    category: "Hogar", 
-    image: "", 
-    description: "Cojín decorativo hecho a mano con telas guatemaltecas. Diseño único y colorido.", 
-    condition: "Nuevo" 
-  }
-];
-
-const allProducts = [...mine, ...feed];
+// La información de productos ahora se carga desde data.js
 
 // Crear un mapa de productos por ID para acceso rápido
 const productsMap = new Map();
-allProducts.forEach(product => {
+all.forEach(product => {
   productsMap.set(product.id, product);
 });
 
