@@ -37,17 +37,21 @@ body{
 }
 
 .brand-img {
-  width: var(--brand-size);
-  height: var(--brand-size);
+  width: 90px;                  /* tamaño fijo */ 
+  height: 90px; 
+  opacity: 0;        /* esta oculto por defecto */
+  visibility: hidden;
+  
   object-fit: contain;
-  transition: all .3s ease;
+  transition: all .3s ease, opacity .3s, visibility .3s;
   border-radius: 8px;
-  /* Mejorar la calidad de la imagen */
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
 
 .sidebar:hover .brand-img {
+  opacity: 1;         /* Visible en hover */
+  visibility: visible;
   width: 90px;
   height: 90px;
 }
