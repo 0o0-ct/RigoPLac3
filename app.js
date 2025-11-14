@@ -250,6 +250,7 @@ $$('.chip').forEach(chip => {
 // ========================================
 const loginModal = $('#loginModal');
 const createModal = $('#createModal');
+const profileModal = $('#profileModal');
 
 const open = (el) => { 
   el.classList.add('open'); 
@@ -264,7 +265,14 @@ const close = (el) => {
 };
 
 // Event listeners para abrir modales
-$('#btnProfile').addEventListener('click', () => open(loginModal));
+$('#btnProfile').addEventListener('click', () => {
+  const session = localStorage.getItem('rigocompra_session');
+  if (session) {
+    open(profileModal);
+  } else {
+    open(loginModal);
+  }
+});
 $('#btnCrear')?.addEventListener('click', () => { 
   open(createModal); 
   setTimeout(() => $('#f_title')?.focus(), 50); 
@@ -281,11 +289,12 @@ $$('.modal-close').forEach(btn => {
     if (which === 'login') close(loginModal);
     if (which === 'create') close(createModal);
     if (which === 'product') closeProductModal();
+    if (which === 'profile') close(profileModal);
   });
 });
 
 // Cerrar al hacer clic fuera del modal
-[loginModal, createModal, productModal].forEach(m => 
+[loginModal, createModal, productModal, profileModal].forEach(m =>
   m.addEventListener('click', e => { 
     if (e.target === m) close(m); 
   })
@@ -384,6 +393,66 @@ if (badgeMsg) {
   badgeMsg.textContent = '2'; 
   badgeMsg.hidden = false; 
 }
+
+// ========================================
+// PROFILE MODAL LOGIC
+// ========================================
+const profileForm = $('#profileForm');
+const profileMsg = $('#profileMsg');
+
+function populateProfileModal() {
+  const userData = localStorage.getItem('rigocompra_user');
+  if (userData) {
+    const user = JSON.parse(userData);
+    $('#profileName').textContent = user.name;
+    $('#profileUsername').textContent = `@${user.username}`;
+    $('#profileAvatar').src = user.avatar || 'https://via.placeholder.com/150';
+  }
+}
+
+$('#btnProfile').addEventListener('click', () => {
+  const session = localStorage.getItem('rigocompra_session');
+  if (session) {
+    populateProfileModal();
+    open(profileModal);
+  } else {
+    open(loginModal);
+  }
+});
+
+profileForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const newName = $('#profileNameInput').value.trim();
+
+  const userData = localStorage.getItem('rigocompra_user');
+  if (userData) {
+    const user = JSON.parse(userData);
+    if (newName) {
+      user.name = newName;
+    }
+
+    const avatarFile = $('#avatarUpload').files[0];
+    if (avatarFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        user.avatar = event.target.result;
+        localStorage.setItem('rigocompra_user', JSON.stringify(user));
+        populateProfileModal();
+      };
+      reader.readAsDataURL(avatarFile);
+    } else {
+      localStorage.setItem('rigocompra_user', JSON.stringify(user));
+      populateProfileModal();
+    }
+
+    profileMsg.textContent = 'Perfil actualizado ✅';
+    profileMsg.classList.add('ok');
+    setTimeout(() => {
+      profileMsg.textContent = '';
+      profileMsg.classList.remove('ok');
+    }, 2000);
+  }
+});
 
 // ========================================
 // CONSOLA DE DESARROLLO / DEV CONSOLE
