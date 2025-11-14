@@ -72,14 +72,21 @@
       msg.style.color = 'green';
       localStorage.setItem('rigocompra_session', 'true');
 
+      // Close the modal
+      loginModal.setAttribute('aria-hidden', 'true');
+
+      // Show welcome toast
+      const toast = document.createElement('div');
+      toast.className = 'welcome-toast';
+      toast.textContent = 'Bienvenido a RigoPlace';
+      document.body.appendChild(toast);
+
       setTimeout(() => {
-        loginModal.classList.add('fade-out');
+        toast.classList.add('fade-out');
         setTimeout(() => {
-            loginModal.setAttribute('aria-hidden', 'true');
-            loginModal.classList.remove('fade-out');
-            msg.textContent = '';
-        }, 500);
-      }, 1000);
+          toast.remove();
+        }, 1000);
+      }, 4000);
 
     } else {
       msg.textContent = 'Usuario o contraseña incorrectos.';
