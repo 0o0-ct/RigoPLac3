@@ -165,89 +165,61 @@
   </div>
 
 
-  <!-- PROFILE MODAL -->
-<div id="profileModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="profileTitle">
-  <div class="modal-dialog">
-    <button class="modal-close" data-close="profile" aria-label="Cerrar"><i class='bx bx-x'></i></button>
-    <div class="profile-wrapper">
-      <form id="profileForm" novalidate>
-        <h1 id="profileTitle">Perfil</h1>
-
-        <div class="profile-header">
-          <div class="profile-avatar">
-            <img id="profileAvatar" src="https://via.placeholder.com/150" alt="Avatar">
-            <label for="avatarUpload" class="edit-avatar-btn" title="Cambiar foto de perfil">
-              <i class='bx bx-pencil'></i>
-            </label>
-            <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
-          </div>
-          <div class="profile-info">
-            <h2 id="profileName">Nombre de Usuario</h2>
-            <p id="profileUsername">@usuario</p>
-          </div>
-        </div>
-
-        <div class="input-box">
-          <input type="text" id="profileNameInput" name="profileName" placeholder="Nuevo nombre" autocomplete="name">
-          <i class='bx bxs-user'></i>
-        </div>
-
-        <div class="profile-actions">
-          <button type="button" id="viewFavoritesBtn" class="btn-secondary"><i class='bx bx-heart'></i> Ver Favoritos</button>
-          <button type="button" id="viewSavedBtn" class="btn-secondary"><i class='bx bx-bookmark'></i> Ver Guardados</button>
-        </div>
-
-        <button type="submit" class="btn">Guardar Cambios</button>
-        <p class="msg" id="profileMsg" aria-live="polite"></p>
-      </form>
-    </div>
-  </div>
-</div>
   <!-- LOGIN MODAL -->
   <div id="loginModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="loginTitle">
     <div class="modal-dialog">
       <button class="modal-close" data-close="login" aria-label="Cerrar"><i class='bx bx-x'></i></button>
       <div class="login-wrapper">
+        <!-- Login Form -->
         <form id="loginForm" novalidate>
           <h1 id="loginTitle">Login</h1>
-
-          <div class="input-box" id="nameInput" style="display: none;">
-            <input type="text" id="name" name="name" placeholder="Name" autocomplete="name" required>
-            <i class='bx bxs-user'></i>
-          </div>
-
-          <div class="input-box" id="lastnameInput" style="display: none;">
-            <input type="text" id="lastname" name="lastname" placeholder="Lastname" autocomplete="lastname" required>
-            <i class='bx bxs-user'></i>
-          </div>
-
           <div class="input-box">
             <input type="text" id="username" name="username" placeholder="Username" autocomplete="username" required>
             <i class='bx bxs-user'></i>
           </div>
-
           <div class="input-box">
             <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required minlength="6">
             <i class='bx bxs-lock-alt'></i>
           </div>
-
-          <div class="input-box" id="pinInput" style="display: none;">
-            <input type="password" id="pin" name="pin" placeholder="6 or 8 digit PIN" autocomplete="pin" required>
-            <i class='bx bxs-lock-alt'></i>
-          </div>
-
           <div class="remember-forgot">
             <label><input type="checkbox" id="remember"> Remember me</label>
             <a href="#" class="muted">Forgot Password?</a>
           </div>
-
           <button type="submit" class="btn">Login</button>
-
           <div class="register-link">
-            <p>Don't have an account? <a href="#">Register</a></p>
+            <p>Don't have an account? <a href="#" id="registerLink">Register</a></p>
           </div>
-
           <p class="msg" id="msg" aria-live="polite"></p>
+        </form>
+
+        <!-- Registration Form -->
+        <form id="registerForm" novalidate hidden>
+          <h1 id="registerTitle">Register</h1>
+          <div class="input-box">
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+            <i class='bx bxs-user'></i>
+          </div>
+          <div class="input-box">
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+            <i class='bx bxs-user'></i>
+          </div>
+          <div class="input-box">
+            <input type="text" id="regUsername" name="regUsername" placeholder="Username" autocomplete="username" required>
+            <i class='bx bxs-user'></i>
+          </div>
+          <div class="input-box">
+            <input type="password" id="regPassword" name="regPassword" placeholder="Password" autocomplete="new-password" required minlength="6">
+            <i class='bx bxs-lock-alt'></i>
+          </div>
+          <div class="input-box">
+            <input type="password" id="pin" name="pin" placeholder="6 or 8-digit PIN" required pattern="^\d{6,8}$">
+            <i class='bx bxs-key'></i>
+          </div>
+          <button type="submit" class="btn">Register</button>
+          <div class="register-link">
+            <p>Already have an account? <a href="#" id="loginLink">Login</a></p>
+          </div>
+          <p class="msg" id="registerMsg" aria-live="polite"></p>
         </form>
       </div>
     </div>
@@ -343,6 +315,38 @@
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE MODAL -->
+  <div id="profileModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="profileTitle">
+    <div class="modal-dialog">
+      <button class="modal-close" data-close="profile" aria-label="Cerrar"><i class='bx bx-x'></i></button>
+      <div class="profile-wrapper">
+        <h1 id="profileTitle">Perfil</h1>
+        <div class="profile-avatar">
+          <img id="profileAvatar" src="https://via.placeholder.com/150" alt="Avatar">
+          <label for="avatarInput" class="edit-avatar-btn"><i class='bx bx-pencil'></i></label>
+          <input type="file" id="avatarInput" accept="image/*" hidden>
+        </div>
+        <h2 id="profileName">Nombre de Usuario</h2>
+        <p id="profileUsername">@usuario</p>
+        <form id="profileForm">
+          <div class="input-box">
+            <input type="text" id="newFirstName" placeholder="Nuevo nombre">
+            <i class='bx bxs-user'></i>
+          </div>
+          <div class="input-box">
+            <input type="text" id="newLastName" placeholder="Nuevo apellido">
+            <i class='bx bxs-user'></i>
+          </div>
+          <div class="profile-actions">
+            <button type="button" class="btn-secondary"><i class='bx bx-heart'></i> Ver Favoritos</button>
+            <button type="button" class="btn-secondary"><i class='bx bx-save'></i> Ver Guardados</button>
+          </div>
+          <button type="submit" class="btn">Guardar Cambios</button>
+        </form>
       </div>
     </div>
   </div>

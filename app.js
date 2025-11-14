@@ -250,7 +250,6 @@ $$('.chip').forEach(chip => {
 // ========================================
 const loginModal = $('#loginModal');
 const createModal = $('#createModal');
-const profileModal = $('#profileModal');
 
 const open = (el) => { 
   el.classList.add('open'); 
@@ -265,14 +264,53 @@ const close = (el) => {
 };
 
 // Event listeners para abrir modales
+const profileModal = $('#profileModal');
+
 $('#btnProfile').addEventListener('click', () => {
   const session = localStorage.getItem('rigocompra_session');
   if (session) {
+    const user = JSON.parse(localStorage.getItem('rigocompra_user'));
+    $('#profileName').textContent = `${user.firstName} ${user.lastName}`;
+    $('#profileUsername').textContent = `@${user.username}`;
+    if (user.avatar) {
+      $('#profileAvatar').src = user.avatar;
+    }
     open(profileModal);
   } else {
     open(loginModal);
   }
 });
+
+$('#avatarInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      $('#profileAvatar').src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+$('#profileForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newFirstName = $('#newFirstName').value.trim();
+    const newLastName = $('#newLastName').value.trim();
+    const newAvatar = $('#profileAvatar').src;
+
+    const user = JSON.parse(localStorage.getItem('rigocompra_user'));
+
+    if (newFirstName) user.firstName = newFirstName;
+    if (newLastName) user.lastName = newLastName;
+    if (newAvatar) user.avatar = newAvatar;
+
+    localStorage.setItem('rigocompra_user', JSON.stringify(user));
+
+    alert('Perfil actualizado con éxito');
+    close(profileModal);
+});
+
+
 $('#btnCrear')?.addEventListener('click', () => { 
   open(createModal); 
   setTimeout(() => $('#f_title')?.focus(), 50); 
@@ -306,6 +344,7 @@ window.addEventListener('keydown', e => {
     close(loginModal); 
     close(createModal);
     closeProductModal();
+    close(profileModal);
   } 
 });
 
@@ -393,66 +432,6 @@ if (badgeMsg) {
   badgeMsg.textContent = '2'; 
   badgeMsg.hidden = false; 
 }
-
-// ========================================
-// PROFILE MODAL LOGIC
-// ========================================
-const profileForm = $('#profileForm');
-const profileMsg = $('#profileMsg');
-
-function populateProfileModal() {
-  const userData = localStorage.getItem('rigocompra_user');
-  if (userData) {
-    const user = JSON.parse(userData);
-    $('#profileName').textContent = user.name;
-    $('#profileUsername').textContent = `@${user.username}`;
-    $('#profileAvatar').src = user.avatar || 'https://via.placeholder.com/150';
-  }
-}
-
-$('#btnProfile').addEventListener('click', () => {
-  const session = localStorage.getItem('rigocompra_session');
-  if (session) {
-    populateProfileModal();
-    open(profileModal);
-  } else {
-    open(loginModal);
-  }
-});
-
-profileForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const newName = $('#profileNameInput').value.trim();
-
-  const userData = localStorage.getItem('rigocompra_user');
-  if (userData) {
-    const user = JSON.parse(userData);
-    if (newName) {
-      user.name = newName;
-    }
-
-    const avatarFile = $('#avatarUpload').files[0];
-    if (avatarFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        user.avatar = event.target.result;
-        localStorage.setItem('rigocompra_user', JSON.stringify(user));
-        populateProfileModal();
-      };
-      reader.readAsDataURL(avatarFile);
-    } else {
-      localStorage.setItem('rigocompra_user', JSON.stringify(user));
-      populateProfileModal();
-    }
-
-    profileMsg.textContent = 'Perfil actualizado ✅';
-    profileMsg.classList.add('ok');
-    setTimeout(() => {
-      profileMsg.textContent = '';
-      profileMsg.classList.remove('ok');
-    }, 2000);
-  }
-});
 
 // ========================================
 // CONSOLA DE DESARROLLO / DEV CONSOLE
