@@ -165,6 +165,44 @@
   </div>
 
 
+  <!-- PROFILE MODAL -->
+<div id="profileModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="profileTitle">
+  <div class="modal-dialog">
+    <button class="modal-close" data-close="profile" aria-label="Cerrar"><i class='bx bx-x'></i></button>
+    <div class="profile-wrapper">
+      <form id="profileForm" novalidate>
+        <h1 id="profileTitle">Perfil</h1>
+
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <img id="profileAvatar" src="https://via.placeholder.com/150" alt="Avatar">
+            <label for="avatarUpload" class="edit-avatar-btn" title="Cambiar foto de perfil">
+              <i class='bx bx-pencil'></i>
+            </label>
+            <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+          </div>
+          <div class="profile-info">
+            <h2 id="profileName">Nombre de Usuario</h2>
+            <p id="profileUsername">@usuario</p>
+          </div>
+        </div>
+
+        <div class="input-box">
+          <input type="text" id="profileNameInput" name="profileName" placeholder="Nuevo nombre" autocomplete="name">
+          <i class='bx bxs-user'></i>
+        </div>
+
+        <div class="profile-actions">
+          <button type="button" id="viewFavoritesBtn" class="btn-secondary"><i class='bx bx-heart'></i> Ver Favoritos</button>
+          <button type="button" id="viewSavedBtn" class="btn-secondary"><i class='bx bx-bookmark'></i> Ver Guardados</button>
+        </div>
+
+        <button type="submit" class="btn">Guardar Cambios</button>
+        <p class="msg" id="profileMsg" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</div>
   <!-- LOGIN MODAL -->
   <div id="loginModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="loginTitle">
     <div class="modal-dialog">
@@ -173,6 +211,16 @@
         <form id="loginForm" novalidate>
           <h1 id="loginTitle">Login</h1>
 
+          <div class="input-box" id="nameInput" style="display: none;">
+            <input type="text" id="name" name="name" placeholder="Name" autocomplete="name" required>
+            <i class='bx bxs-user'></i>
+          </div>
+
+          <div class="input-box" id="lastnameInput" style="display: none;">
+            <input type="text" id="lastname" name="lastname" placeholder="Lastname" autocomplete="lastname" required>
+            <i class='bx bxs-user'></i>
+          </div>
+
           <div class="input-box">
             <input type="text" id="username" name="username" placeholder="Username" autocomplete="username" required>
             <i class='bx bxs-user'></i>
@@ -180,6 +228,11 @@
 
           <div class="input-box">
             <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required minlength="6">
+            <i class='bx bxs-lock-alt'></i>
+          </div>
+
+          <div class="input-box" id="pinInput" style="display: none;">
+            <input type="password" id="pin" name="pin" placeholder="6 or 8 digit PIN" autocomplete="pin" required>
             <i class='bx bxs-lock-alt'></i>
           </div>
 
